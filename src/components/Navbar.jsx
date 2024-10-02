@@ -19,7 +19,7 @@ export default function Navbar(){
 
     return (
         <>
-            <header className="bg-gray-100 border">
+            <header className="bg-white border">
                 <nav className="container mx-auto flex justify-between px-5">
                     < a href="/"><img src="./logo.png" alt="Logo" className="h-16 w-24"/></a>
                     <ul className="sm:flex hidden items-center gap-8">
