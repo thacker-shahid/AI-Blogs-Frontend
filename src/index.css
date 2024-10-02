@@ -8,3 +8,14 @@
 body{
     background-color: rgb(241, 236, 236);
 }
+.editorjsdiv h3, h4, h5{
+    font-weight: 500;
+    font-size:  16px;
+}
+
+.editorjsdiv li{
+    margin-bottom: 10px;
+    list-style-type: disc;
+    padding-left: 10px;
+    margin-left: 25px;
+}

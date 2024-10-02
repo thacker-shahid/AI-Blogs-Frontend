@@ -10,7 +10,12 @@ export const blogsApi = createApi({
         fetchBlogs: builder.query ({
             query: () => `blogs`
         }),
+        fetchBlogById: builder.query({
+            query: (id) => `blogs/${id}`
+        }),
     }),
+
+
     // endpoints: (builder) => ({
     //     fetchBlogs: builder.query ({
     //         query: (search='', category='', location='') => {
@@ -20,4 +25,4 @@ export const blogsApi = createApi({
     // }),
   })
 
-export const {useFetchBlogsQuery} = blogsApi
+export const {useFetchBlogsQuery, useFetchBlogByIdQuery } = blogsApi
