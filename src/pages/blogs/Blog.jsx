@@ -9,7 +9,7 @@ export default function Blog(){
     const [category, setCategory]  = useState('');
     const [query, setQuery]  = useState({search: '', category: '', location:''});
 
-    const {data: blogs=[], error, isLoading} = useFetchBlogsQuery()
+    const {data: blogs=[], error, isLoading} = useFetchBlogsQuery(query)
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);

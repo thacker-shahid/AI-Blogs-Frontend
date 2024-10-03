@@ -10,22 +10,18 @@ export const blogsApi = createApi({
         fetchBlogs: builder.query ({
             query: () => `blogs`
         }),
+        // fetchBlogs: builder.query ({
+        //     query: (search='', category='', location='') => {
+        //         `/blogs?search=${search}&category=${category}&location=${location}`
+        //     }
+        // }),
         fetchBlogById: builder.query({
             query: (id) => `blogs/${id}`
         }),
         fetchRelatedBlogs: builder.query({
             query: (id) => `blogs/related/${id}`
-        }),
-    }),
-
-
-    // endpoints: (builder) => ({
-    //     fetchBlogs: builder.query ({
-    //         query: (search='', category='', location='') => {
-    //             `/blogs?search=${search}&category=${category}&location=${location}`
-    //         }
-    //     }),
-    // }),
+        })
+    })
   })
 
 export const {useFetchBlogsQuery, useFetchBlogByIdQuery, useFetchRelatedBlogsQuery } = blogsApi
