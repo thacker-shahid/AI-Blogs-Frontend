@@ -30,7 +30,7 @@ export default function Navbar() {
       await logoutUser().unwrap();
       dispatch(logout());
     } catch (err) {
-        console.error("Failed to log out: ", err);
+      console.error("Failed to log out: ", err);
     }
   };
 
@@ -56,7 +56,10 @@ export default function Navbar() {
             {user && user.role === "user" && (
               <li className="flex items-center gap-3">
                 <img src={avatarImg} alt="AvatarImage" className="size-8" />
-                <button onClick={handleLogout} className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm">
+                <button
+                  onClick={handleLogout}
+                  className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm"
+                >
                   Logout
                 </button>
               </li>
@@ -68,19 +71,17 @@ export default function Navbar() {
                 <Link to="/dashboard">
                   <button className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm">
                     Dashboard
-                  </button>{" "}
+                  </button>
                 </Link>
               </li>
             )}
-            {
-                user? (
-                    <></>
-                ):(
-                        <li>
-                            <NavLink to="/login">Login</NavLink>
-                        </li>
-                )
-            }
+            {user ? (
+              <></>
+            ) : (
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            )}
           </ul>
 
           {/* Toggle Menu Button */}

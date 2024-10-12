@@ -5,7 +5,6 @@ export default function RelatedBlogs(){
     
     const {id} = useParams();
     const {data: blogs=[], error, isLoading} = useFetchRelatedBlogsQuery(id);
-    console.log("related Blgs are ",blogs);
 
     return (
         <div>
@@ -16,7 +15,7 @@ export default function RelatedBlogs(){
                     <div className="mt-5 space-y-4">
                         {
                             blogs.map((blog) => (
-                                <Link to={`/blogs/${blog._id}`} key={blog.id} className="flex flex-col sm:flex-row sm:items-center gap-4 shadow-sm px-8 py-4">
+                                <Link to={`/blogs/${blog._id}`} key={blog._id} className="flex flex-col sm:flex-row sm:items-center gap-4 shadow-sm px-8 py-4">
                                     <div  className="size-14"> 
                                         <img src={blog.coverImg} alt="blog cover" className="w-full h-full rounded-full ring-1 ring-blue-700" />
                                     </div>

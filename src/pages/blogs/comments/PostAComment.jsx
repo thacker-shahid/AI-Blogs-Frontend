@@ -1,16 +1,46 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom"
+import { usePostCommentMutation } from "../../../redux/features/comments/commentApi";
+import { useFetchBlogByIdQuery } from "../../../redux/features/blogs/blogsApi";
+
 
 export default function PostAComment(){
-
+    
+    const navigate = useNavigate();
     const {id} = useParams();
     const [comment, setComment] = useState();
+    const {user} = useSelector((state)=>state.auth);
 
+    const [postComment] = usePostCommentMutation();
+    const {refetch} = useFetchBlogByIdQuery(id, {skip: !id});
+
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        if(!user){
+            navigate('/login');
+            return;
+        }
+        const newComment = {
+            comment: comment,
+            user: user?._id,
+            postId: id
+        }
+        try{
+            const response = await postComment(newComment).unwrap();
+            alert('Comment posted successfully');
+            setComment('');
+            refetch();
+        } catch(err){
+            console.log(err);
+        }
+    }
+    
     return(
         <div className="mt-8">
             <h3 className="text-lg font-medium mb-8">Leave a comment here!</h3>
             {/* Form for comment */}
-            <form action="">
+            <form onSubmit={handleSubmit} action="">
                 <textarea 
                     name="text" 
                     id="" 
