@@ -21,7 +21,7 @@ export const commentApi = createApi({
 
         getComment: builder.query({  // mutation is used when we need to send something to the database.
             query: () =>({
-                url: '/total-comment',
+                url: '/total-comments',
                 method: 'GET',
             })
         }),

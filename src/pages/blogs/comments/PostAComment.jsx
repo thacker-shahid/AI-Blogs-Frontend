@@ -53,8 +53,6 @@ export default function PostAComment(){
                 </textarea>
                 <button type="submit" className="w-full bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md">Submit</button>
             </form>
-            {/* Submit button */}
-
         </div>
     )
 }

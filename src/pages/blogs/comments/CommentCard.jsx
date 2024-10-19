@@ -2,16 +2,24 @@ import { useSelector } from "react-redux";
 import commentorIcon from "../../../assets/commentorIcon.jpg";
 import PostAComment from "./PostAComment";
 export default function CommentCard({ comments }) {
-  console.log("all comments: ", comments)
-  const user = useSelector((state) => state.auth.user);
-//   const comment = useSelector((state)=>state.auth);
+
+  const formatDate = (date) => {
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    return new Date(date).toLocaleDateString('en-US', options);
+};
 
   return (
     <div className="my-6 bg-white p-8">
+       {/* Comment Input Here */}
+       <PostAComment />
       <div>
         {comments ? (
           <div>
-            <h3 className="text-lg font-medium">All Comments</h3>
+            <h3 className="text-lg font-medium mt-8">All Comments</h3>
             <div>
               {comments.map((comment, index) => (
                 <div key={index} className="mt-4">
@@ -22,7 +30,10 @@ export default function CommentCard({ comments }) {
                         {comment?.user?.username}
                       </p>
                       <p className="text-[12px] italic">
-                        FormatDate: {comment?.createdAt}
+                        {
+                          // comment?.createdAt
+                          formatDate(comment?.createdAt)
+                        }
                       </p>
                     </div>
                   </div>
@@ -43,9 +54,6 @@ export default function CommentCard({ comments }) {
           <div className="font-medium text-lg">No comments found!</div>
         )}
       </div>
-
-      {/* Comment Input Here */}
-      <PostAComment />
     </div>
   );
 }
