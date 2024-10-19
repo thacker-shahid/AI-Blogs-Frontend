@@ -3,82 +3,92 @@ import { useSelector } from "react-redux";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
-import { usePostBlogMutation } from "../../../redux/features/blogs/blogsApi";
-import { useNavigate } from "react-router-dom";
+import { useFetchBlogByIdQuery, usePostBlogMutation, useUpdateBlogMutation } from "../../../redux/features/blogs/blogsApi";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function AddPost() {
+export default function UpdatePost() {
   
+  const {id}= useParams();
+
   const navigate = useNavigate();
-  const [postBlog, {isLoading}] = usePostBlogMutation();
   const [title, setTitle] = useState("");
   const [coverImg, setcoverImg] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState(0);
-
-  const { user } = useSelector((state) => state.auth);
   const editorRef = useRef(null);
 
-  useEffect(() => {
-    const editor = new EditorJS({
-      holder: "editorjs",
-      onReady: () => {
-        editorRef.current = editor;
-      },
-      autofocus: true,
-      tools: {
-        header: {
-          class: Header,
-          inlineToolbar: true,
-        },
-        list: {
-          class: List,
-          inlineToolbar: true,
-        },
-      },
-    });
+  const {data: blog=[], isError, isLoading, refetch} = useFetchBlogByIdQuery(id);
 
-    return () => {
-      editor.destroy();
-      editorRef.current = null;
-    };
+  const [updateBlog] = useUpdateBlogMutation();
+  const { user } = useSelector((state) => state.auth);
+
+  
+  useEffect(() => {
+    if(blog.post){
+        const editor = new EditorJS({
+            holder: "editorjs",
+            onReady: () => {
+              editorRef.current = editor;
+            },
+            autofocus: true,
+            tools: {
+              header: {
+                class: Header,
+                inlineToolbar: true,
+              },
+              list: {
+                class: List,
+                inlineToolbar: true,
+              },
+            },
+            data: blog.post.content
+          });
+      
+          return () => {
+            editor.destroy();
+            editorRef.current = null;
+          };
+    }
   }, []);
 
-
-  const handleSubmit = async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-        const content = await editorRef.current.save();
-        const newPost = {
-            title, 
-            coverImg,
-            content,
-            category,
-            descripytion: metaDescription,
-            author: user?._id,
-            rating
-        }
-        const response = await postBlog(newPost).unwrap();
-        console.log(response);
+    try {
+      const content = await editorRef.current.save();
+      const updatedPost = {
+        title: title || blog.post.title,
+        coverImg: coverImg || blog.post.coverImg,
+        content,
+        category: category || blog.post.category,
+        description: metaDescription || blog.post.description,
+        author: user?._id,
+        rating: rating || blog.post.rating,
+      };
+    //   console.log(updatedPost);
 
-        alert("Blog post saved successfully")
-        navigate('/')
-    }catch(err){
-        console.log("Failed to submit post",err);
-        setMessage("Failed to submit post. Please try again");
+      const response = await updateBlog({id, ...updatedPost}).unwrap();
+      console.log(response);
+      alert("Blog post updated successfully");
+      refetch();
+      navigate("/");
+    } catch (err) {
+      console.log("Failed to submit post", err);
+      setMessage("Failed to submit post. Please try again");
     }
-  }
+  };
 
   return (
     <div className="bg-white md:p-8 p-2">
-      <h2 className="text-2xl font-semibold">Create a new blog Post</h2>
+      <h2 className="text-2xl font-semibold">Edit Post</h2>
       <form onSubmit={handleSubmit} className="space-y-5 pt-8">
         <div className="space-y-4">
           <label className="font-semibold text-xl">Blog Title</label>
           <input
             type="text"
-            value={title}
+            // value={title}
+            defaultValue={blog?.post?.title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full inline-block border bg-[#f7f8f9] focus:outline-none px-5 py-3"
             placeholder="Enter blog title..."
@@ -102,7 +112,8 @@ export default function AddPost() {
               <label className="font-semibold text-xl">Blog Cover</label>
               <input
                 type="text"
-                value={coverImg}
+                // value={coverImg}
+                defaultValue={blog?.post?.coverImg}
                 onChange={(e) => setcoverImg(e.target.value)}
                 className="w-full inline-block border bg-[#f7f8f9] focus:outline-none px-5 py-3"
                 placeholder="https://www.unsplash.com/cover-photo1.png..."
@@ -114,7 +125,7 @@ export default function AddPost() {
               <label className="font-semibold text-xl">Category</label>
               <input
                 type="text"
-                value={category}
+                defaultValue={blog?.post?.category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full inline-block border bg-[#f7f8f9] focus:outline-none px-5 py-3"
                 placeholder="technology/automobile/business..."
@@ -128,7 +139,7 @@ export default function AddPost() {
                 type="text"
                 cols="4"
                 rows="4"
-                value={metaDescription}
+                defaultValue={blog?.post?.description}
                 onChange={(e) => setMetaDescription(e.target.value)}
                 className="w-full inline-block bg-[#f7f8f9] border focus:outline-none px-5 py-3"
                 placeholder="write your meta description..."
@@ -140,7 +151,7 @@ export default function AddPost() {
               <label className="font-semibold">Rating</label>
               <input
                 type="number"
-                value={rating}
+                defaultValue={blog?.post?.rating}
                 onChange={(e) => setRating(e.target.value)}
                 className="w-full inline-block bg-[#f7f8f9] border focus:outline-none px-5 py-3"
                 placeholder="Rating..."
@@ -161,11 +172,15 @@ export default function AddPost() {
             </div>
           </div>
         </div>
-      
-      {
-        message && <p className="text-red-500">{message}</p>
-        }
-        <button disabled={isLoading} type="submit" className="w-full mt-5 bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md">Add new Blog</button>
+
+        {message && <p className="text-red-500">{message}</p>}
+        <button
+          disabled={isLoading}
+          type="submit"
+          className="w-full mt-5 bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md"
+        >
+          Update Blog
+        </button>
       </form>
     </div>
   );

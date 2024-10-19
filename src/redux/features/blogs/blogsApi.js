@@ -46,7 +46,6 @@ export const blogsApi = createApi({
             query: (id) => ({
                 url: `/blogs/${id}`,
                 method: 'DELETE',
-                body: rest,
                 credentials: "include" 
             }),
             invalidatesTags: (result, error, {id}) => [{type: "Blogs", id}],
