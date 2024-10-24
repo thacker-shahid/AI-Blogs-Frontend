@@ -42,8 +42,8 @@ export default function Navbar() {
             <img src="./logo.png" alt="Logo" className="h-16 w-24" />
           </a>
           <ul className="sm:flex hidden items-center gap-8">
-            {navList.map((item) => (
-              <li key={item.name}>
+            {navList.map((item, index) => (
+              <li key={index}>
                 <NavLink
                   to={`${item.path}`}
                   className={({ isActive }) => (isActive ? "active" : "")}
@@ -101,8 +101,8 @@ export default function Navbar() {
           {/* Toggle Menu Items */}
           {isMenuOpen && (
             <ul className="fixed top-[108px] left-0 w-full h-auto pb-8 border-b bg-white shadow-sm">
-              {navList.map((item) => (
-                <li key={item.name} className="mt-5 px-4">
+              {navList.map((item, index) => (
+                <li key={index} className="mt-5 px-4">
                   <NavLink
                     to={`${item.path}`}
                     onClick={() => setIsMenuOpen(false)}

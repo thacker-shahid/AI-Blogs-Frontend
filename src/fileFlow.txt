@@ -2,17 +2,18 @@ index.html-->main.jsx-->router.jsx-->App.jsx
 
 Functionality to be implemented:
 
-1. Google auth
-2. AI integration
-3. Email verification using 6 digit code
-4. Forgot password
-5. Delete Comment functionality for admin
-6. Search Blog functionality
-7. Scroll to top
-8. React Toast message
-9. Progress bar
-10.Dark mode
-11.Responsive design
-12.Footer, AboutUs, Privacy Policy, Contact Us page
-13.Bugs related to layout and to token in cookie storage
-14.Deploy it on Hostinger   
+AI integration
+Search Blog functionality--->Done
+Secure the admin dashboard.--->Done
+Scroll to top
+React Toast message
+Progress bar
+Dark mode
+Footer, AboutUs, Privacy Policy, Contact Us page
+Bugs related to layout and Responsive design
+
+Forgot password / Email verification using 6 digit code
+Google 2FA auth
+Delete Comment functionality for admin
+Bug related to token in cookie storage
+Deploy it on Hostinger

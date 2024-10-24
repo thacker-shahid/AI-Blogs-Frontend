@@ -3,19 +3,16 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // Define a service using a base URL and expected endpoints
 export const blogsApi = createApi({
     reducerPath: 'blogsApi',
-    baseQuery: fetchBaseQuery({ 
+    baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000/api',
         credentials: 'include'
     }),
     tagTypes: ['Blogs'],
     endpoints: (builder) => ({
-        fetchBlogs: builder.query ({
-            query: () => `blogs`
+        fetchBlogs: builder.query({
+            query: ({ search = '', category = '', location = '' }) => `/blogs?search=${search}&category=${category}&location=${location}`,
+            providesTags: ['Blogs'],
         }),
-        // fetchBlogs: builder.query ({
-        //     query: ({search='', category='', location=''}) =>`/blogs?search=${search}&category=${category}&location=${location}`,
-        //     providesTags: ['Blogs'], 
-        // }),
         fetchBlogById: builder.query({
             query: (id) => `blogs/${id}`
         }),
@@ -29,28 +26,28 @@ export const blogsApi = createApi({
                 body: newPost,
                 credentials: 'include'
             }),
-            invalidatesTags: [{ type: 'Blogs'}],
+            invalidatesTags: [{ type: 'Blogs' }],
         }),
 
         updateBlog: builder.mutation({
-            query: ({id, ...rest}) => ({
+            query: ({ id, ...rest }) => ({
                 url: `/blogs/update-post/${id}`,
                 method: 'PATCH',
                 body: rest,
-                credentials: "include" 
+                credentials: "include"
             }),
-            invalidatesTags: (result, error, {id}) => [{type: "Blogs", id}],
+            invalidatesTags: (result, error, { id }) => [{ type: "Blogs", id }],
         }),
 
         deleteBlog: builder.mutation({
             query: (id) => ({
                 url: `/blogs/${id}`,
                 method: 'DELETE',
-                credentials: "include" 
+                credentials: "include"
             }),
-            invalidatesTags: (result, error, {id}) => [{type: "Blogs", id}],
+            invalidatesTags: (result, error, { id }) => [{ type: "Blogs", id }],
         })
     })
-  })
+})
 
-export const {useFetchBlogsQuery, useFetchBlogByIdQuery, useFetchRelatedBlogsQuery, usePostBlogMutation, useUpdateBlogMutation, useDeleteBlogMutation } = blogsApi
+export const { useFetchBlogsQuery, useFetchBlogByIdQuery, useFetchRelatedBlogsQuery, usePostBlogMutation, useUpdateBlogMutation, useDeleteBlogMutation } = blogsApi

@@ -5,18 +5,6 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/auth/authSlice";
 
 export default function AdminNavigation() {
-
-  // const [logoutUser] = useLogoutUserMutation();
-  // const dispatch = useDispatch();
-  // const handleLogout = async () => {
-  //   try {
-  //     await logoutUser().unwrap();
-  //     dispatch(logout());
-  //   } catch (error) {
-  //     console.error("Error logging out user:", error);
-  //   }
-  // }
-
   const [logoutUser] = useLogoutUserMutation();
   const dispatch = useDispatch();
 
@@ -85,8 +73,13 @@ export default function AdminNavigation() {
 
       {/* Footer part */}
       <div className="mb-3">
-        <hr className="mb-8"/>
-        <button onClick={handleLogout} className="text-white bg-red-500 font-medium px-5 py-1 rounded-sm">Logout</button>
+        <hr className="mb-8" />
+        <button
+          onClick={handleLogout}
+          className="text-white bg-red-500 font-medium px-5 py-1 rounded-sm"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );
