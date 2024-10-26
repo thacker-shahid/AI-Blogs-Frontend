@@ -60,6 +60,16 @@ export default function AdminNavigation() {
           </li>
           <li>
             <NavLink
+              to={"/dashboard/manage-comments"}
+              className={({ isActive }) =>
+                isActive ? "text-blue-600 font-bold" : "text-black"
+              }
+            >
+              Comments
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to={"/dashboard/users"}
               className={({ isActive }) =>
                 isActive ? "text-blue-600 font-bold" : "text-black"

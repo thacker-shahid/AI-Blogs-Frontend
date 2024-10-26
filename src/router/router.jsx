@@ -15,6 +15,7 @@ import ManagePosts from "../pages/admin/post/ManagePosts";
 import ManageUser from "../pages/admin/user/ManageUser";
 import UpdatePost from "../pages/admin/post/UpdatePost";
 import PrivateRouter from "./PrivateRouter";
+import ManageComments from "../pages/admin/comments/ManageComments";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
           {
             path: "manage-items",
             element: <ManagePosts />,
+          },
+          {
+            path: "manage-comments",
+            element: <ManageComments />,
           },
           {
             path: "users",

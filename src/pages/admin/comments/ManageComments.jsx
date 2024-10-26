@@ -1,20 +1,27 @@
 import { useState } from "react";
+// import {
+//   useDeleteBlogMutation,
+//   useFetchBlogsQuery,
+// } from "../../../redux/features/blogs/blogsApi";
+// import { Link } from "react-router-dom";
+// import { MdModeEdit } from "react-icons/md";
 import {
-  useDeleteBlogMutation,
-  useFetchBlogsQuery,
-} from "../../../redux/features/blogs/blogsApi";
-import { Link } from "react-router-dom";
-import { MdModeEdit } from "react-icons/md";
+  useDeleteCommentMutation,
+  useGetAllCommentQuery,
+} from "../../../redux/features/comments/commentApi";
 
-export default function ManagePosts() {
-  const [query, setQuery] = useState({ search: "", category: "" });
+export default function ManageComments() {
+  // const [query, setQuery] = useState({ search: "", category: "" });
+
   const {
-    data: blogs = [],
+    data: comments = [],
     isError,
     isLoading,
     refetch,
-  } = useFetchBlogsQuery(query);
-  const [deleteBlog] = useDeleteBlogMutation();
+  } = useGetAllCommentQuery();
+  console.log("All comments: ", comments.allComments);
+
+  const [deleteComment] = useDeleteCommentMutation();
 
   const formatDate = (date) => {
     const options = {
@@ -27,11 +34,11 @@ export default function ManagePosts() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await deleteBlog(id);
-      alert("Blog deleted successfully");
+      const response = await deleteComment(id);
+      alert("Comment deleted successfully");
       refetch();
     } catch (err) {
-      console.error("Error deleting blog:", err);
+      console.error("Error deleting comment:", err);
     }
   };
   return (
@@ -44,16 +51,8 @@ export default function ManagePosts() {
               <div className="flex flex-wrap items-center">
                 <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                   <h3 className="font-semibold text-base text-blueGray-700">
-                    All Blogs
+                    All Comments
                   </h3>
-                </div>
-                <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                  <button
-                    className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    See all
-                  </button>
                 </div>
               </div>
             </div>
@@ -66,14 +65,14 @@ export default function ManagePosts() {
                       No.
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                      Blog Name
+                      Comment
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                      Publishing Date
+                      Commenting Date
                     </th>
-                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                    {/* <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                       Edit Or Manage
-                    </th>
+                    </th> */}
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                       Delete
                     </th>
@@ -81,32 +80,21 @@ export default function ManagePosts() {
                 </thead>
 
                 <tbody>
-                  {blogs &&
-                    blogs.map((blog, index) => (
+                  {comments.allComments &&
+                    comments.allComments.map((comment, index) => (
                       <tr key={index}>
                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                           {index + 1}
                         </th>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                          {blog.title}
+                          {comment.comment}
                         </td>
                         <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          {formatDate(blog.createdAt)}
-                        </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <Link
-                            to={`/dashboard/update-items/${blog._id}`}
-                            className="hover:text-blue-700"
-                          >
-                            <span className="flex items-center gap-1 ">
-                              <MdModeEdit />
-                              Edit
-                            </span>
-                          </Link>
+                          {formatDate(comment.createdAt)}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           <button
-                            onClick={() => handleDelete(blog._id)}
+                            onClick={() => handleDelete(comment._id)}
                             className="bg-red-600 text-white px-2"
                           >
                             Delete
