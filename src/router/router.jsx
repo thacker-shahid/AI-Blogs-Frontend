@@ -16,6 +16,9 @@ import ManageUser from "../pages/admin/user/ManageUser";
 import UpdatePost from "../pages/admin/post/UpdatePost";
 import PrivateRouter from "./PrivateRouter";
 import ManageComments from "../pages/admin/comments/ManageComments";
+import VerifyEmail from "../pages/user/VerifyEmail";
+import ForgotPassword from "../pages/user/ForgotPassword";
+import ResetPassword from "../pages/user/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +31,10 @@ const router = createBrowserRouter([
       { path: "/contact-us", element: <Contact /> },
       { path: "/blogs/:id", element: <SinglBlog /> },
       { path: "/login", element: <Login /> },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      { path: "/reset-password/:token", element: <ResetPassword /> },
       { path: "/register", element: <Register /> },
+      { path: "/verify-email", element: <VerifyEmail /> },
       {
         path: "/dashboard",
         element: (

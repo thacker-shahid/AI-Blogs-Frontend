@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const isCookiePresentInCookies = ()=>{
-    const token = document.cookie.split(';').find(cookie=>cookie.trim().startsWith('token='));
+const isCookiePresentInCookies = () => {
+    const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
     return !!token;
 }
 
-const loadUserFromLocalStorage = ()=>{
+const loadUserFromLocalStorage = () => {
     try {
         const serializedState = localStorage.getItem('user');
-        if(serializedState === null){
-            return {user: JSON.parse(serializedState)}
+        if (serializedState === null) {
+            return { user: JSON.parse(serializedState) }
         }
-        return {user: JSON.parse(serializedState)}
+        return { user: JSON.parse(serializedState) }
     } catch (error) {
-        return {user: null}
+        return { user: null }
     }
 }
 
@@ -34,21 +34,5 @@ const authSlice = createSlice({
     }
 })
 
-// const authSlice = createSlice({
-//     name: 'auth',
-//     initialState,
-//     reducers: {
-//         setUser: (state, action) => {
-//             state.user = action.payload.user;
-//             localStorage.setItem('user', JSON.stringify(action.payload.user));
-//             console.log("action.payload.user: ", action.payload.user);
-//         },
-//         logout: (state) => {
-//             state.user = null;
-//             localStorage.removeItem('user');
-//         }
-//     }
-// })
-
-export const {setUser, logout} = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 export default authSlice.reducer;
