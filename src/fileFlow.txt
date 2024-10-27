@@ -5,6 +5,7 @@ Functionality to be implemented:
 AI integration
 Search Blog functionality--->Done
 Secure the admin dashboard.--->Done
+Delete Comment functionality for admin --->Done
 Scroll to top
 React Toast message
 Progress bar
@@ -14,6 +15,5 @@ Bugs related to layout and Responsive design
 
 Forgot password / Email verification using 6 digit code
 Google 2FA auth
-Delete Comment functionality for admin
-Bug related to token in cookie storage
 Deploy it on Hostinger
+Bug related to token in cookie storage

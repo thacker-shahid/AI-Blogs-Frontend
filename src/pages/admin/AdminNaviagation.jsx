@@ -55,7 +55,7 @@ export default function AdminNavigation() {
                 isActive ? "text-blue-600 font-bold" : "text-black"
               }
             >
-              Manage Items
+              Manage Posts
             </NavLink>
           </li>
           <li>

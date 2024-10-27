@@ -1,25 +1,15 @@
-import { useState } from "react";
-// import {
-//   useDeleteBlogMutation,
-//   useFetchBlogsQuery,
-// } from "../../../redux/features/blogs/blogsApi";
-// import { Link } from "react-router-dom";
-// import { MdModeEdit } from "react-icons/md";
 import {
   useDeleteCommentMutation,
   useGetAllCommentQuery,
 } from "../../../redux/features/comments/commentApi";
 
 export default function ManageComments() {
-  // const [query, setQuery] = useState({ search: "", category: "" });
-
   const {
     data: comments = [],
     isError,
     isLoading,
     refetch,
   } = useGetAllCommentQuery();
-  console.log("All comments: ", comments.allComments);
 
   const [deleteComment] = useDeleteCommentMutation();
 
@@ -70,9 +60,6 @@ export default function ManageComments() {
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                       Commenting Date
                     </th>
-                    {/* <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                      Edit Or Manage
-                    </th> */}
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                       Delete
                     </th>
