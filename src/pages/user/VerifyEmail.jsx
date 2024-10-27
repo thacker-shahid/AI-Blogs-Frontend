@@ -31,7 +31,9 @@ export default function VerifyEmail() {
 
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-8">
-      <h2 className="text-2xl font-semibold pt-5">Please check your email</h2>
+      <h2 className="text-2xl font-semibold pt-5  flex justify-center">
+        Please check your email
+      </h2>
       <p>We have sent 6 digit verificaton code to {verifyEmailData.email}</p>
       <form
         onSubmit={handleVerifyEmail}

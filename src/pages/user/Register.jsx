@@ -33,7 +33,9 @@ export default function Register() {
 
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-8">
-      <h2 className="text-2xl font-semibold pt-5">Please Register</h2>
+      <h2 className="text-2xl font-semibold pt-5  flex justify-center">
+        Please Register
+      </h2>
       <form
         onSubmit={handleRegister}
         className="space-y-5 max-w-sm mx-auto pt-8"

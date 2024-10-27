@@ -29,7 +29,9 @@ export default function ForgotPassword() {
         </h2>
       ) : (
         <div>
-          <h2 className="text-2xl font-semibold pt-5">Forgot Password</h2>
+          <h2 className="text-2xl font-semibold pt-5  flex justify-center">
+            Forgot Password
+          </h2>
 
           <form
             onSubmit={handleResetPassword}

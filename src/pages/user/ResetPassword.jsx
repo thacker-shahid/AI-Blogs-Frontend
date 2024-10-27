@@ -30,7 +30,9 @@ export default function ResetPassword() {
   };
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-8">
-      <h2 className="text-2xl font-semibold pt-5">Reset Password</h2>
+      <h2 className="text-2xl font-semibold pt-5  flex justify-center">
+        Reset Password
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-5 max-w-sm mx-auto pt-8">
         <input
           onChange={(e) => setPassword(e.target.value)}

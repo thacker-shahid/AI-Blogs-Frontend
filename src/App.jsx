@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Navbar from './components/Navbar'
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -9,7 +10,8 @@ export default function App() {
         <div className="flex-grow">
           <Outlet />
         </div>
-        <footer className="mt-auto">Footer</footer>
+        {/* <footer className="mt-auto">Footer</footer> */}
+        <Footer />
       </div>
     </>
   );
