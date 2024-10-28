@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForgotPasswordMutation } from "../../redux/features/auth/authApi";
+import { Toaster, toast } from "sonner";
 
 export default function ForgotPassword() {
   const [message, setMessage] = useState("");
@@ -12,16 +13,22 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       const response = await forgotPassword(email).unwrap();
-      alert("Reset Password link sent successfully");
+      toast.success("Reset Password link sent successfully", {
+        action: { label: "X" },
+      });
       setisButtonClicked(true);
     } catch (err) {
-      console.error("Error resetting password:", err.message);
-      setMessage("Error resetting password. Please try again.");
+      toast.error("OOP's! Error in sending e-mail.", {
+        action: { label: "X" },
+      });
+      console.error("Error in sending e-mail:", err.message);
+      setMessage("Error in sending e-mail. Please try again.");
     }
   };
 
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-8">
+      <Toaster richColors position="top-right" />
       {isButtonClicked ? (
         <h2 className="text-2xl font-semibold pt-5">
           If account exists for <span className="text-red-500">{email}</span>,

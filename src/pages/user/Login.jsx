@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../redux/features/auth/authApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/features/auth/authSlice";
+import { Toaster, toast } from "sonner";
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -22,9 +23,10 @@ export default function Login() {
       console.log("User logged in successfully", response);
       const { token, user } = response;
       dispatch(setUser({ user }));
-      alert("User logged in successfully");
+      toast.success("User logged in successfully!", { action: { label: "X" } });
       navigate("/");
     } catch (err) {
+      toast.error("OOP's! Error while login.", { action: { label: "X" } });
       console.log("Error while Login: ", err);
       setMessage("Please provide a valid email and password");
     }
@@ -32,6 +34,7 @@ export default function Login() {
 
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-8">
+      <Toaster richColors position="top-right" />
       <h2 className="text-2xl font-semibold pt-5  flex justify-center">
         Please Login
       </h2>

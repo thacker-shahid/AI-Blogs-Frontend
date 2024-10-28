@@ -2,6 +2,7 @@ import {
   useDeleteCommentMutation,
   useGetAllCommentQuery,
 } from "../../../redux/features/comments/commentApi";
+import { Toaster, toast } from "sonner";
 
 export default function ManageComments() {
   const {
@@ -25,9 +26,10 @@ export default function ManageComments() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteComment(id);
-      alert("Comment deleted successfully");
+      toast.success("Comment deleted successfully", { action: { label: "X" } });
       refetch();
     } catch (err) {
+      toast.error("Error deleting comment", { action: { label: "X" } });
       console.error("Error deleting comment:", err);
     }
   };
@@ -35,6 +37,7 @@ export default function ManageComments() {
     <>
       {isLoading && <div>Loading...</div>}
       <section className="py-1 bg-blueGray-50">
+        <Toaster richColors position="top-right" />
         <div className="w-full mb-12 xl:mb-0 px-4 mx-auto">
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
             <div className="rounded-t mb-0 px-4 py-3 border-0">

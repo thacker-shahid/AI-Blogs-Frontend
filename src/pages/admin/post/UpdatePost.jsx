@@ -3,12 +3,15 @@ import { useSelector } from "react-redux";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
-import { useFetchBlogByIdQuery, usePostBlogMutation, useUpdateBlogMutation } from "../../../redux/features/blogs/blogsApi";
+import {
+  useFetchBlogByIdQuery,
+  useUpdateBlogMutation,
+} from "../../../redux/features/blogs/blogsApi";
 import { useNavigate, useParams } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 export default function UpdatePost() {
-  
-  const {id}= useParams();
+  const { id } = useParams();
 
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -19,37 +22,41 @@ export default function UpdatePost() {
   const [message, setMessage] = useState(0);
   const editorRef = useRef(null);
 
-  const {data: blog=[], isError, isLoading, refetch} = useFetchBlogByIdQuery(id);
+  const {
+    data: blog = [],
+    isError,
+    isLoading,
+    refetch,
+  } = useFetchBlogByIdQuery(id);
 
   const [updateBlog] = useUpdateBlogMutation();
   const { user } = useSelector((state) => state.auth);
 
-  
   useEffect(() => {
-    if(blog.post){
-        const editor = new EditorJS({
-            holder: "editorjs",
-            onReady: () => {
-              editorRef.current = editor;
-            },
-            autofocus: true,
-            tools: {
-              header: {
-                class: Header,
-                inlineToolbar: true,
-              },
-              list: {
-                class: List,
-                inlineToolbar: true,
-              },
-            },
-            data: blog.post.content
-          });
-      
-          return () => {
-            editor.destroy();
-            editorRef.current = null;
-          };
+    if (blog.post) {
+      const editor = new EditorJS({
+        holder: "editorjs",
+        onReady: () => {
+          editorRef.current = editor;
+        },
+        autofocus: true,
+        tools: {
+          header: {
+            class: Header,
+            inlineToolbar: true,
+          },
+          list: {
+            class: List,
+            inlineToolbar: true,
+          },
+        },
+        data: blog.post.content,
+      });
+
+      return () => {
+        editor.destroy();
+        editorRef.current = null;
+      };
     }
   }, []);
 
@@ -66,21 +73,22 @@ export default function UpdatePost() {
         author: user?._id,
         rating: rating || blog.post.rating,
       };
-    //   console.log(updatedPost);
-
-      const response = await updateBlog({id, ...updatedPost}).unwrap();
-      console.log(response);
-      alert("Blog post updated successfully");
+      const response = await updateBlog({ id, ...updatedPost }).unwrap();
+      toast.success("Blog post updated successfully", {
+        action: { label: "X" },
+      });
       refetch();
       navigate("/");
     } catch (err) {
       console.log("Failed to submit post", err);
       setMessage("Failed to submit post. Please try again");
+      toast.error("Failed to update blog post", { action: { label: "X" } });
     }
   };
 
   return (
     <div className="bg-white md:p-8 p-2">
+      <Toaster richColors position="top-right" />
       <h2 className="text-2xl font-semibold">Edit Post</h2>
       <form onSubmit={handleSubmit} className="space-y-5 pt-8">
         <div className="space-y-4">
@@ -173,7 +181,7 @@ export default function UpdatePost() {
           </div>
         </div>
 
-        {message && <p className="text-red-500">{message}</p>}
+        {/* {message && <p className="text-red-500">{message}</p>} */}
         <button
           disabled={isLoading}
           type="submit"

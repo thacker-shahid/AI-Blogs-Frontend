@@ -3,6 +3,7 @@ import avatarImg from "../../assets/avatarImg.png";
 import { useLogoutUserMutation } from "../../redux/features/auth/authApi";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/auth/authSlice";
+import { Toaster, toast } from "sonner";
 
 export default function AdminNavigation() {
   const [logoutUser] = useLogoutUserMutation();
@@ -12,13 +13,18 @@ export default function AdminNavigation() {
     try {
       await logoutUser().unwrap();
       dispatch(logout());
+      toast.success("Logged out successfully.", { action: { label: "X" } });
     } catch (err) {
       console.error("Failed to log out: ", err);
+      toast.error("Failed to log out. Please try again.", {
+        action: { label: "X" },
+      });
     }
   };
 
   return (
     <div className="space-y-5 p-8 bg-white md:h-[calc(100vh-86px)] flex flex-col justify-between ">
+      <Toaster richColors position="top-right" />
       <div>
         {/* Header part */}
         <div className="mb-5">

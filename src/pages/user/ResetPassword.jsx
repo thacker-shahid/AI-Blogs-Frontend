@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useResetPasswordMutation } from "../../redux/features/auth/authApi";
 import { useNavigate, useParams } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 export default function ResetPassword() {
   const { token } = useParams();
@@ -17,19 +18,27 @@ export default function ResetPassword() {
     try {
       if (password != reEnterPassword) {
         setMessage("Password doesn't match!");
-        alert("Password doesn't match!");
+        toast.error("OOP's! Password doesn't match.", {
+          action: { label: "X" },
+        });
       } else {
         await resetPassword({ token, password: password }).unwrap();
-        alert("Password changed successfully!");
+        toast.success("Password changed successfully!", {
+          action: { label: "X" },
+        });
         navigate("/login");
       }
     } catch (err) {
-      console.error("Error resetting password", err);
-      setMessage("Error resetting password");
+      toast.error("OOP's! Error re-setting password.", {
+        action: { label: "X" },
+      });
+      console.error("Error re-setting password", err);
+      setMessage("Error re-setting password");
     }
   };
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-8">
+      <Toaster richColors position="top-right" />
       <h2 className="text-2xl font-semibold pt-5  flex justify-center">
         Reset Password
       </h2>

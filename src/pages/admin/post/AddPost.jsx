@@ -5,11 +5,11 @@ import Header from "@editorjs/header";
 import List from "@editorjs/list";
 import { usePostBlogMutation } from "../../../redux/features/blogs/blogsApi";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 export default function AddPost() {
-  
   const navigate = useNavigate();
-  const [postBlog, {isLoading}] = usePostBlogMutation();
+  const [postBlog, { isLoading }] = usePostBlogMutation();
   const [title, setTitle] = useState("");
   const [coverImg, setcoverImg] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
@@ -45,33 +45,34 @@ export default function AddPost() {
     };
   }, []);
 
-
-  const handleSubmit = async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-        const content = await editorRef.current.save();
-        const newPost = {
-            title, 
-            coverImg,
-            content,
-            category,
-            descripytion: metaDescription,
-            author: user?._id,
-            rating
-        }
-        const response = await postBlog(newPost).unwrap();
-        console.log(response);
-
-        alert("Blog post saved successfully")
-        navigate('/')
-    }catch(err){
-        console.log("Failed to submit post",err);
-        setMessage("Failed to submit post. Please try again");
+    try {
+      const content = await editorRef.current.save();
+      const newPost = {
+        title,
+        coverImg,
+        content,
+        category,
+        descripytion: metaDescription,
+        author: user?._id,
+        rating,
+      };
+      const response = await postBlog(newPost).unwrap();
+      toast.success("Blog post saved successfully", { action: { label: "X" } });
+      navigate("/");
+    } catch (err) {
+      console.log("Failed to submit post", err);
+      setMessage("Failed to submit post. Please try again");
+      toast.error("Failed to submit post. Please try again", {
+        action: { label: "X" },
+      });
     }
-  }
+  };
 
   return (
     <div className="bg-white md:p-8 p-2">
+      <Toaster richColors position="top-right" />
       <h2 className="text-2xl font-semibold">Create a new blog Post</h2>
       <form onSubmit={handleSubmit} className="space-y-5 pt-8">
         <div className="space-y-4">
@@ -161,11 +162,15 @@ export default function AddPost() {
             </div>
           </div>
         </div>
-      
-      {
-        message && <p className="text-red-500">{message}</p>
-        }
-        <button disabled={isLoading} type="submit" className="w-full mt-5 bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md">Add new Blog</button>
+
+        {message && <p className="text-red-500">{message}</p>}
+        <button
+          disabled={isLoading}
+          type="submit"
+          className="w-full mt-5 bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md"
+        >
+          Add new Blog
+        </button>
       </form>
     </div>
   );

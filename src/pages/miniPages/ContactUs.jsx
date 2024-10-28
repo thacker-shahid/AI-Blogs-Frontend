@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { usePostFormMutation } from "../../redux/features/contactus/contactusApi";
+import { Toaster, toast } from "sonner";
 
 export default function contactus() {
   const [name, setName] = useState("");
@@ -23,15 +24,17 @@ export default function contactus() {
       setEmail("");
       setTextArea("");
       setMessage("");
-      alert("Form submitted successfully!");
+      toast.success("Form submitted successfully!", { action: { label: "X" } });
     } catch (err) {
+      toast.error("OOP's! Something went wrong.", { action: { label: "X" } });
       console.error(err);
-      setMessage(err.data.message);
+      setMessage("Some error occured. Please try again");
     }
   };
 
   return (
     <div className="max-w-3xl bg-white mx-auto p-8 mt-8">
+      <Toaster richColors position="top-right" />
       <h2 className="text-2xl font-semibold pt-5 flex justify-center">
         Contact Us
       </h2>

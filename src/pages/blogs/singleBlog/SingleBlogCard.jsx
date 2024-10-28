@@ -16,9 +16,6 @@ export default function SingleBlogCard({ blog }) {
   } = blog || {};
   const htmlContent = editorJSHTML.parse(content).join("");
 
-  // const open_AI_API_Key = import.meta.env.VITE_OPEN_AI_API_KEY;
-  // console.log("open_AI_API_Key: ", open_AI_API_Key);
-
   const formatDate = (date) => {
     const options = {
       year: "numeric",
@@ -53,7 +50,7 @@ export default function SingleBlogCard({ blog }) {
             dangerouslySetInnerHTML={{ __html: htmlContent }}
             className="space-y-3 editorjsdiv"
           />
-          <div>
+          <div className="mt-8">
             <span className="text-large font-medium">Rating: </span>
             <span>{rating} (based on 2,346 reviews)</span>
           </div>

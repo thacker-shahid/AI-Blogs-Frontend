@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import avatarImg from "../assets/avatarImg.png";
 import { useLogoutUserMutation } from "../redux/features/auth/authApi";
 import { logout } from "../redux/features/auth/authSlice";
+import { Toaster, toast } from "sonner";
 
 export default function Navbar() {
   const navList = [
@@ -29,14 +30,19 @@ export default function Navbar() {
     try {
       await logoutUser().unwrap();
       dispatch(logout());
+      toast.success("Logged out successfully!", { action: { label: "X" } });
     } catch (err) {
       console.error("Failed to log out: ", err);
+      toast.error("Failed to log out. Please try again.", {
+        action: { label: "X" },
+      });
     }
   };
 
   return (
     <>
       <header className="bg-white border">
+        <Toaster richColors position="top-right" />
         <nav className="container mx-auto flex justify-between px-5">
           <a href="/">
             <img src="./logo.png" alt="Logo" className="h-16 w-24" />

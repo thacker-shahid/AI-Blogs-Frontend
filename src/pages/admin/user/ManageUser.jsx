@@ -5,6 +5,7 @@ import {
 } from "../../../redux/features/auth/authApi";
 import { MdModeEdit } from "react-icons/md";
 import UpdateUserModal from "./UpdateUserModal";
+import { Toaster, toast } from "sonner";
 
 export default function ManageUser() {
   const { data: user = [], isLoading, isError, refetch } = useGetUserQuery();
@@ -15,9 +16,10 @@ export default function ManageUser() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteUser(id);
-      alert("User deleted successfully");
+      toast.success("User deleted successfully", { action: { label: "X" } });
       refetch();
     } catch (error) {
+      toast.error("Error deleting user", { action: { label: "X" } });
       console.error("Error in deleting user", error);
     }
   };
@@ -25,17 +27,18 @@ export default function ManageUser() {
   const handleEdit = (user) => {
     setSelectedUser(user);
     setisModalOpen(true);
-  }
+  };
 
-  const handleCloseModal = ()=>{
-      setisModalOpen(false);
-      setSelectedUser(null);
-  }
+  const handleCloseModal = () => {
+    setisModalOpen(false);
+    setSelectedUser(null);
+  };
 
   return (
     <>
       {isLoading && <div>Loading...</div>}
       <section className="py-1 bg-blueGray-50">
+        <Toaster richColors position="top-right" />
         <div className="w-full mb-12 xl:mb-0 px-4 mx-auto">
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
             <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -89,16 +92,23 @@ export default function ManageUser() {
                           {user?.email}
                         </td>
                         <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <span className={`rounded-full py-[2px] px-3 ${user?.role==='admin'? "bg-indigo-500 text-white":"bg-amber-300"}`}>
+                          <span
+                            className={`rounded-full py-[2px] px-3 ${
+                              user?.role === "admin"
+                                ? "bg-indigo-500 text-white"
+                                : "bg-amber-300"
+                            }`}
+                          >
                             {user?.role}
                           </span>
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <button 
-                            onClick={()=>handleEdit(user)}
-                            className="hover:text-blue-700 flex items-center gap-1 ">
-                                <MdModeEdit />
-                                Edit
+                          <button
+                            onClick={() => handleEdit(user)}
+                            className="hover:text-blue-700 flex items-center gap-1 "
+                          >
+                            <MdModeEdit />
+                            Edit
                             {/* <span className="flex items-center gap-1 ">
                               
                             </span> */}
@@ -121,9 +131,13 @@ export default function ManageUser() {
         </div>
       </section>
 
-      {
-        isModalOpen && <UpdateUserModal user={selectedUser} onRoleUpdate={refetch} onClose={handleCloseModal} />     
-      }
+      {isModalOpen && (
+        <UpdateUserModal
+          user={selectedUser}
+          onRoleUpdate={refetch}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 }

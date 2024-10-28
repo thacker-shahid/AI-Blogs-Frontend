@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useUpdateUserRoleMutation } from "../../../redux/features/auth/authApi";
+import { Toaster, toast } from "sonner";
 
 export default function UpdateUserModal({ user, onClose, onRoleUpdate }) {
   const [role, setRole] = useState(user?.role);
@@ -8,15 +9,20 @@ export default function UpdateUserModal({ user, onClose, onRoleUpdate }) {
   const handleUpdateRole = async () => {
     try {
       await updateUserRole({ userId: user?._id, role }).unwrap();
+      toast.success("User role updated successfully", {
+        action: { label: "X" },
+      });
       // onRoleUpdate();
       onClose();
     } catch (err) {
       console.error("Error updating user role:", err);
+      toast.error("Error updating user role", { action: { label: "X" } });
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <Toaster richColors position="top-right" />
       <div className="bg-white p-4 rounded shadow-1g w-1/3">
         <h2 className="text-xl mb-4">Edit User</h2>
         <div className="mb-4 space-y-4">

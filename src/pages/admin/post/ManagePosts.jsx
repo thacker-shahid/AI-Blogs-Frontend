@@ -5,6 +5,7 @@ import {
 } from "../../../redux/features/blogs/blogsApi";
 import { Link } from "react-router-dom";
 import { MdModeEdit } from "react-icons/md";
+import { Toaster, toast } from "sonner";
 
 export default function ManagePosts() {
   const [query, setQuery] = useState({ search: "", category: "" });
@@ -28,9 +29,10 @@ export default function ManagePosts() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteBlog(id);
-      alert("Blog deleted successfully");
+      toast.success("Blog deleted successfully", { action: { label: "X" } });
       refetch();
     } catch (err) {
+      toast.error("Error deleting blog", { action: { label: "X" } });
       console.error("Error deleting blog:", err);
     }
   };
@@ -38,6 +40,7 @@ export default function ManagePosts() {
     <>
       {isLoading && <div>Loading...</div>}
       <section className="py-1 bg-blueGray-50">
+        <Toaster richColors position="top-right" />
         <div className="w-full mb-12 xl:mb-0 px-4 mx-auto">
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
             <div className="rounded-t mb-0 px-4 py-3 border-0">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../redux/features/auth/authApi";
+import { Toaster, toast } from "sonner";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -17,8 +18,9 @@ export default function Register() {
     const data = { username, email, password };
     try {
       const response = await registerUser(data).unwrap();
-      alert(
-        `User registration successful, email verification is sent at ${email}! please verify your account. `
+      toast.success(
+        `User registration successful, email verification is sent at ${email}! please verify your account.`,
+        { action: { label: "X" } }
       );
       const verifyEmailData = {
         email: email,
@@ -26,13 +28,17 @@ export default function Register() {
       };
       navigate("/verify-email", { state: verifyEmailData });
     } catch (err) {
+      toast.error("OOP's! Error while registering user.", {
+        action: { label: "X" },
+      });
       setMessage(err);
-      console.error("Error registering user", err);
+      console.error("Error registering user. Please try again.");
     }
   };
 
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-8">
+      <Toaster richColors position="top-right" />
       <h2 className="text-2xl font-semibold pt-5  flex justify-center">
         Please Register
       </h2>
