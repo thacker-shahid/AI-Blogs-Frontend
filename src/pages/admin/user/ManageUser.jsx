@@ -9,6 +9,7 @@ import { Toaster, toast } from "sonner";
 
 export default function ManageUser() {
   const { data: user = [], isLoading, isError, refetch } = useGetUserQuery();
+  console.log("user: ", user);
   const [deleteUser] = useDeleteUserMutation();
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setisModalOpen] = useState(false);
@@ -32,6 +33,15 @@ export default function ManageUser() {
   const handleCloseModal = () => {
     setisModalOpen(false);
     setSelectedUser(null);
+  };
+
+  const formatDate = (date) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(date).toLocaleDateString("en-US", options);
   };
 
   return (
@@ -73,6 +83,9 @@ export default function ManageUser() {
                       User Role
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      Last Login
+                    </th>
+                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                       Edit or Manage
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -103,15 +116,15 @@ export default function ManageUser() {
                           </span>
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          {formatDate(user.lastLogin)}
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           <button
                             onClick={() => handleEdit(user)}
                             className="hover:text-blue-700 flex items-center gap-1 "
                           >
                             <MdModeEdit />
                             Edit
-                            {/* <span className="flex items-center gap-1 ">
-                              
-                            </span> */}
                           </button>
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

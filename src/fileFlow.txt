@@ -9,14 +9,16 @@ Delete Comment functionality for admin --->Done
 Forgot password / Email verification using 6 digit code --->Done
 Footer, AboutUs, Privacy Policy, Contact Us page --->Done
 React Toast message --->Done
+Page Not Found --->Done
+Pagination-->Done
+Make all the new routes related to verify email, reset password secure--->Done
+Bugs related to layout and Responsive design--->Done
 
-Make all the new routes related to verify email, reset password secure
-Bugs related to layout and Responsive design
-Dark mode
-Progress bar
 Scroll to top
 Loading Spinner
-Bug related to token in cookie storage
+Dark mode
+Progress bar
 
+Bug related to token in cookie storage
 Google 2FA auth
 Deploy it on Hostinger

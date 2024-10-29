@@ -19,6 +19,7 @@ import ManageComments from "../pages/admin/comments/ManageComments";
 import VerifyEmail from "../pages/user/VerifyEmail";
 import ForgotPassword from "../pages/user/ForgotPassword";
 import ResetPassword from "../pages/user/ResetPassword";
+import PageNotFound from "../pages/miniPages/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 

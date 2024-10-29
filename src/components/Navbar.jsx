@@ -118,6 +118,36 @@ export default function Navbar() {
                   </NavLink>
                 </li>
               ))}
+
+              {user && user.role === "user" && (
+                <li className="mt-5 px-4">
+                  {/* <img src={avatarImg} alt="AvatarImage" className="size-8" /> */}
+                  <button
+                    onClick={handleLogout}
+                    className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm"
+                  >
+                    Logout
+                  </button>
+                </li>
+              )}
+
+              {user && user.role === "admin" && (
+                <li className="mt-5 px-4">
+                  {/* <img src={avatarImg} alt="AvatarImage" className="size-8" /> */}
+                  <Link to="/dashboard">
+                    <button className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm">
+                      Dashboard
+                    </button>
+                  </Link>
+                </li>
+              )}
+              {user ? (
+                <></>
+              ) : (
+                <li className="mt-5 px-4">
+                  <NavLink to="/login">Login</NavLink>
+                </li>
+              )}
             </ul>
           )}
         </nav>
