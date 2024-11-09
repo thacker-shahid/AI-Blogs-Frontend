@@ -14,6 +14,7 @@ export default function Dashboard() {
   const { data: blogs = [], error, isLoading } = useFetchBlogsQuery(query);
   const { data: comments = [] } = useGetCommentQuery();
   const { data: allUsers = [] } = useGetUserQuery();
+
   const adminCount = allUsers.users?.filter(
     (myAdmin) => myAdmin.role == "admin"
   );
@@ -31,11 +32,11 @@ export default function Dashboard() {
         <div className="flex flex-col md:flex-row gap-8 pt-8 justify-between ">
           <div className="bg-indigo-100 py-6 w-full rounded-sm space-y-1 flex flex-col items-center ">
             <FiUsers className="size-8 text-indigo-600" />
-            <p>{allUsers.users.length}</p>
+            <p>{allUsers?.users?.length}</p>
           </div>
           <div className="bg-red-100 py-6 w-full rounded-sm space-y-1 flex flex-col items-center ">
             <FaBlog className="size-8 text-red-600" />
-            <p>{blogs.length} Blogs</p>
+            <p>{blogs?.length} Blogs</p>
           </div>
           <div className="bg-lime-100 py-6 w-full rounded-sm space-y-1 flex flex-col items-center ">
             <RiAdminLine className="size-8 text-lime-600" />
