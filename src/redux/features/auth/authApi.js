@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://ai-blogs.onrender.com/api/auth',
+        baseUrl: import.meta.env.VITE_BACKEND_URL + '/api/auth',
         credentials: 'include'
     }),
     endpoints: (builder) => ({

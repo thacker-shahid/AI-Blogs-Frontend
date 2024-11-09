@@ -15,8 +15,8 @@ export default function Dashboard() {
   const { data: comments = [] } = useGetCommentQuery();
   const { data: allUsers = [] } = useGetUserQuery();
   const adminCount = allUsers.users?.filter(
-      (myAdmin) => myAdmin.role == "admin"
-    );
+    (myAdmin) => myAdmin.role == "admin"
+  );
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function Dashboard() {
         <div className="flex flex-col md:flex-row gap-8 pt-8 justify-between ">
           <div className="bg-indigo-100 py-6 w-full rounded-sm space-y-1 flex flex-col items-center ">
             <FiUsers className="size-8 text-indigo-600" />
-            <p>2 Users</p>
+            <p>{allUsers.users.length}</p>
           </div>
           <div className="bg-red-100 py-6 w-full rounded-sm space-y-1 flex flex-col items-center ">
             <FaBlog className="size-8 text-red-600" />
@@ -49,7 +49,7 @@ export default function Dashboard() {
 
         {/* graphs and charts */}
         <div className="pt-5 pb-5">
-            <BlogsChart blogs={blogs} />
+          <BlogsChart blogs={blogs} />
         </div>
       </div>
     </>
