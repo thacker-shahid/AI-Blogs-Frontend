@@ -5,7 +5,6 @@ export default function PrivateRouter({ children }) {
   const { user } = useSelector((state) => {
     return state.auth;
   });
-  // const token = document.cookie;
   const location = useLocation();
   if (user) {
     return children;

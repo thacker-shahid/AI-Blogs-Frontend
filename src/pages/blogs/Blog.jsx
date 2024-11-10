@@ -34,7 +34,6 @@ export default function Blog() {
 
   const handleNext = () => {
     page = page + 1;
-    console.log("next", page);
     setPage(page);
   };
 

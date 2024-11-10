@@ -13,6 +13,7 @@ export const store = configureStore({
     [contactUsApi.reducerPath]: contactUsApi.reducer,
     auth: authReducer
   },
+  // Below code is simply used for caching
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(blogsApi.middleware, authApi.middleware, commentApi.middleware, contactUsApi.middleware)
 })

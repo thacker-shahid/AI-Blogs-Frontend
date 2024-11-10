@@ -48,7 +48,7 @@ export default function ResetPassword() {
           required
           type="password"
           value={password}
-          placeholder="Please enter your email"
+          placeholder="Enter new password"
           className="w-full bg-bgPrimary focus:outline-none border px-5 py-3"
         />
 
@@ -57,7 +57,7 @@ export default function ResetPassword() {
           required
           type="password"
           value={reEnterPassword}
-          placeholder="Please enter your email"
+          placeholder="Re-enter new password"
           className="w-full bg-bgPrimary focus:outline-none border px-5 py-3"
         />
 

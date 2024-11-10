@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../redux/features/auth/authApi";
 import { Toaster, toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setVerifyEmailRoute } from "../../redux/features/auth/authSlice";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -12,19 +14,21 @@ export default function Register() {
     useRegisterUserMutation();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const data = { username, email, password };
     try {
       const response = await registerUser(data).unwrap();
+      dispatch(setVerifyEmailRoute(true));
       toast.success(
         `User registration successful, email verification is sent at ${email}! please verify your account.`,
         { action: { label: "X" } }
       );
       const verifyEmailData = {
         email: email,
-        verificationToken: response.user.verificationToken,
+        verificationToken: response?.user?.verificationToken,
       };
       navigate("/verify-email", { state: verifyEmailData });
     } catch (err) {
