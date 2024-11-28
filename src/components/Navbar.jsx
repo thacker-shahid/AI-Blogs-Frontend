@@ -7,6 +7,7 @@ import avatarImg from "../assets/avatarImg.png";
 import { useLogoutUserMutation } from "../redux/features/auth/authApi";
 import { logout } from "../redux/features/auth/authSlice";
 import { Toaster, toast } from "sonner";
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const navList = [
@@ -45,7 +46,13 @@ export default function Navbar() {
         <Toaster richColors position="top-right" />
         <nav className="container mx-auto flex justify-between px-5">
           <a href="/">
-            <img src="./logo.png" alt="Logo" className="h-16 w-24" />
+            <img
+              src={logo}
+              alt="Logo"
+              // style={{ display: "block", border: "1px solid red" }}
+              width="200px"
+              height="50px"
+            />
           </a>
           <ul className="sm:flex hidden items-center gap-8">
             {navList.map((item, index) => (

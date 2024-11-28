@@ -13,4 +13,4 @@
 11. Pagination to show only 4 blogs per page.
 
 Please visit this link to view backend API: https://ai-blogs.onrender.com/api/blogs
-Please visit this link to view frontend: https://www.trendingblogs.onrender.com
+Please visit this link to view frontend: https://trendingblogs.onrender.com/

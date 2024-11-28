@@ -20,7 +20,7 @@ export default function aboutus() {
           It is a Professional trending Platform. Here we will only provide you
           with interesting content that you will enjoy very much. We are
           committed to providing you the best of trending, with a focus on
-          reliability and tech. we strive to turn our passion for trending into
+          reliability and tech. We strive to turn our passion for trending into
           a thriving website. We hope you enjoy our trending as much as we enjoy
           giving them to you. I will keep on posting such valuable anf
           knowledgeable information on my Website for all of you. Your love and
