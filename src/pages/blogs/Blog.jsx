@@ -60,14 +60,14 @@ export default function Blog() {
         <button
           disabled={page <= 1}
           onClick={handlePrevious}
-          className="border rounded text-white p-2 bg-red-700"
+          className="border rounded text-white p-2 bg-blue-700"
         >
           &larr; Previous
         </button>
         <button
           onClick={handleNext}
           disabled={page >= Math.ceil(blogs.length / pageSize)}
-          className="border bg-red-700 rounded text-white p-2 "
+          className="border bg-blue-700 rounded text-white p-2 "
         >
           Next &rarr;
         </button>

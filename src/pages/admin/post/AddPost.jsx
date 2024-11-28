@@ -15,7 +15,7 @@ export default function AddPost() {
   const [metaDescription, setMetaDescription] = useState("");
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState(0);
+  const [message, setMessage] = useState("");
 
   const { user } = useSelector((state) => state.auth);
   const editorRef = useRef(null);

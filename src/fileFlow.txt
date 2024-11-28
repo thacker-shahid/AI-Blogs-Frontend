@@ -23,10 +23,5 @@ Bug related to token in cookie storage
 Google 2FA auth
 Deploy it on Hostinger
 
-Add Hero section.(Done)
-Add proper logo.(Done)
-Add social icons.
-Add user panel where users can update their password and upload aatar image.
-Add title for chrome tab.
-Add custom domain from hostinger.
 Add 20 post in blog.
+Add user panel where users can update their password and upload aatar image.

@@ -19,7 +19,7 @@ export default function UpdatePost() {
   const [metaDescription, setMetaDescription] = useState("");
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState(0);
+  const [message, setMessage] = useState("");
   const editorRef = useRef(null);
 
   const {
@@ -67,7 +67,7 @@ export default function UpdatePost() {
       const updatedPost = {
         title: title || blog.post.title,
         coverImg: coverImg || blog.post.coverImg,
-        content,
+        content: content || blog.post.content,
         category: category || blog.post.category,
         description: metaDescription || blog.post.description,
         author: user?._id,
@@ -181,7 +181,7 @@ export default function UpdatePost() {
           </div>
         </div>
 
-        {/* {message && <p className="text-red-500">{message}</p>} */}
+        {message && <p className="text-red-500">{message}</p>}
         <button
           disabled={isLoading}
           type="submit"
