@@ -9,6 +9,8 @@ import { logout } from "../redux/features/auth/authSlice";
 import { Toaster, toast } from "sonner";
 import logo from "../assets/logo.png";
 import { setDarkMode } from "../redux/features/darkmode/darkModeSlice";
+import { FaSun } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
 
 export default function Navbar(toggle) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -68,11 +70,8 @@ export default function Navbar(toggle) {
               </li>
             ))}
 
-            <button
-              onClick={() => dispatch(setDarkMode())}
-              className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
-            >
-              {darkMode ? "Light Mode" : "Dark Mode"}
+            <button onClick={() => dispatch(setDarkMode())}>
+              {darkMode ? <FaSun size={25} /> : <FaMoon size={25} />}
             </button>
 
             {user && user.role === "user" && (
@@ -113,11 +112,14 @@ export default function Navbar(toggle) {
 
           {/* Toggle Menu Button */}
           <div className="flex items-center sm:hidden">
-            <button
+            {/* <button
               onClick={() => dispatch(setDarkMode())}
               className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-8 rounded-md"
             >
               {darkMode ? "Light Mode" : "Dark Mode"}
+            </button> */}
+            <button className="mr-10" onClick={() => dispatch(setDarkMode())}>
+              {darkMode ? <FaSun size={25} /> : <FaMoon size={25} />}
             </button>
             <button
               onClick={toggleMenu}
