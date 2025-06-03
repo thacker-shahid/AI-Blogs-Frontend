@@ -7,6 +7,9 @@ import { setVerifyEmailRoute } from "../../redux/features/auth/authSlice";
 import { useSelector } from "react-redux";
 
 export default function VerifyEmail() {
+  const [message, setMessage] = useState("");
+  const [userVerificatinToken, setUserVerificationToken] = useState("");
+
   const { verifyEmailRouteStatus } = useSelector((state) => {
     return state.auth;
   });
@@ -14,9 +17,6 @@ export default function VerifyEmail() {
   const location = useLocation();
   const verifyEmailData = location.state;
   const navigate = useNavigate();
-
-  const [message, setMessage] = useState("");
-  const [userVerificatinToken, setUserVerificationToken] = useState("");
 
   const [verifyEmail] = useVerifyEmailMutation(userVerificatinToken);
 
@@ -48,7 +48,7 @@ export default function VerifyEmail() {
   return (
     <>
       {verifyEmailRouteStatus && (
-        <div className="max-w-sm bg-white mx-auto p-8 mt-8">
+        <div className="max-w-sm mx-auto p-8 mt-8 text-black dark:text-white dark:border-gray-600 border">
           <Toaster richColors position="top-right" />
           <h2 className="text-2xl font-semibold pt-5  flex justify-center">
             Please check your email
@@ -66,13 +66,15 @@ export default function VerifyEmail() {
               type="number"
               value={userVerificatinToken}
               placeholder="Enter 6 digit code"
-              className="w-full bg-bgPrimary focus:outline-none border px-5 py-3"
+              className="w-full bg-bgPrimary focus:outline-none px-5 py-3 border bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
             />
 
             {message && <div className={`text-red-500 text-xs`}>{message}</div>}
-            <button className="w-full mt-5 bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md">
-              Verify Email
-            </button>
+            <div className="flex justify-center">
+              <button className="mt-5 bg-slate-900 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-3 rounded-md w-2/4">
+                Verify Email
+              </button>
+            </div>
           </form>
         </div>
       )}

@@ -31,7 +31,6 @@ export default function PostAComment() {
       setComment("");
       refetch();
     } catch (err) {
-      console.log(err);
       toast.error("OOP's! Failed to post comment. Please try again.", {
         action: { label: "X" },
       });
@@ -52,14 +51,17 @@ export default function PostAComment() {
           cols="30"
           rows="10"
           placeholder="Comment about this post here..."
-          className="w-full bg-bgPrimary focus:outline-none border p-5"
+          className="w-full bg-bgPrimary focus:outline-none p-5 border bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
         ></textarea>
-        <button
-          type="submit"
-          className="w-full bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md"
-        >
-          Submit
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            // className="w-full bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md"
+            className="mt-5 mb-5 bg-slate-900 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-3 rounded-md w-2/4"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

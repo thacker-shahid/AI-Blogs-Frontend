@@ -33,7 +33,7 @@ export default function contactus() {
   };
 
   return (
-    <div className="max-w-3xl bg-white mx-auto p-8 mt-8">
+    <div className="max-w-3xl mx-auto p-8 mt-8 text-black dark:text-white dark:border-gray-600 border">
       <Toaster richColors position="top-right" />
       <h2 className="text-2xl font-semibold pt-5 flex justify-center">
         Contact Us
@@ -45,7 +45,7 @@ export default function contactus() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter your name"
-          className="w-full bg-bgPrimary focus:outline-none border px-5 py-3"
+          className="w-full bg-bgPrimary focus:outline-none px-5 py-3 border bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
         />
 
         <input
@@ -54,7 +54,7 @@ export default function contactus() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="w-full bg-bgPrimary focus:outline-none border px-5 py-3"
+          className="w-full bg-bgPrimary focus:outline-none px-5 py-3 border bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
         />
 
         <textarea
@@ -64,15 +64,17 @@ export default function contactus() {
           onChange={(e) => setTextArea(e.target.value)}
           rows="5"
           placeholder="Enter your query here..."
-          className="w-full bg-bgPrimary focus:outline-none border p-5"
+          className="w-full bg-bgPrimary focus:outline-none p-5 border bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
         ></textarea>
         {message && <div className={`text-red-500 text-xs`}>{message}</div>}
-        <button
-          type="submit"
-          className="w-full bg-slate-900 hover:bg-indigo-500 text-white font-medium py-3 rounded-md"
-        >
-          Submit
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="mt-5 bg-slate-900 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-3 rounded-md w-2/4"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

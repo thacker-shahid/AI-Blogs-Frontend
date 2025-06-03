@@ -12,7 +12,7 @@ export default function UpdateUserModal({ user, onClose, onRoleUpdate }) {
       toast.success("User role updated successfully", {
         action: { label: "X" },
       });
-      // onRoleUpdate();
+      onRoleUpdate();
       onClose();
     } catch (err) {
       console.error("Error updating user role:", err);

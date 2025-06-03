@@ -23,11 +23,12 @@ export default function AdminNavigation() {
   };
 
   return (
-    <div className="space-y-5 p-8 bg-white md:h-[calc(100vh-86px)] flex flex-col justify-between ">
+    // <div className="space-y-5 p-8 bg-white md:h-[calc(100vh-86px)] flex flex-col justify-between ">
+    <div className="space-y-5 p-8 bg-white md:h-[calc(100vh-86px)] flex flex-col justify-between mt-8">
       <Toaster richColors position="top-right" />
       <div>
         {/* Header part */}
-        <div className="mb-5">
+        <div className="mb-5 ">
           <img className="size-20" src={avatarImg} alt="avatar" />
           <p className="font-semibold">Admin</p>
         </div>

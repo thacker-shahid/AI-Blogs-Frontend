@@ -15,13 +15,13 @@ export default function SearchBlog({
         type="text"
         value={search}
         onChange={handleSearchChange}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         placeholder="search any blog here..."
-        className="py-2 px-4 mr=5  w-full bg-[#f7f8f9] focus:outline-none focus:border"
+        className="w-full bg-bgPrimary focus:outline-none px-5 py-3 mr-5 border bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
       />
       <button
         onClick={handleSearch}
-        className="bg-[#1E73BE] px-4 py-2 text-white"
+        className="border bg-[#1E73BE] px-4 py-2 text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900"
       >
         Search
       </button>

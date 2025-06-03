@@ -1,6 +1,6 @@
 # Functionality of this web app:
 
-1. Separate and private admin panel.
+1. Private admin panel.
 2. Admin can Create, Update, Edit, and Delete any post.
 3. Admin can Delete any comment on any post.
 4. Admin can change user role as admin or simple user.

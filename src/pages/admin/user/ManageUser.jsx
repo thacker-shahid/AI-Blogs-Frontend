@@ -9,7 +9,6 @@ import { Toaster, toast } from "sonner";
 
 export default function ManageUser() {
   const { data: user = [], isLoading, isError, refetch } = useGetUserQuery();
-  console.log("user: ", user);
   const [deleteUser] = useDeleteUserMutation();
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setisModalOpen] = useState(false);

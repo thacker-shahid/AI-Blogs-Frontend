@@ -13,7 +13,7 @@ export default function Footer() {
         </div>
       </footer> */}
 
-      <footer className="bg-white shadow mt-8 dark:bg-gray-950">
+      <footer className="bg-white shadow mt-8 dark:bg-gray-900 border-t dark:border-t-gray-600">
         <div className="w-full mx-auto max-w-screen-xl p-4 sm:flex sm:items-center sm:justify-between">
           <span className="text-md text-gray-500 sm:text-center dark:text-gray-400">
             © 2024{" "}

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from 'js-cookie';
 
 const isCookiePresentInCookies = () => {
     const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
@@ -37,6 +38,8 @@ const authSlice = createSlice({
         logout: (state) => { // This logout function is  called actions function.
             state.user = null;
             localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            Cookies.remove('token');
         },
         setVerifyEmailRoute: (state, action) => {
             state.verifyEmailRouteStatus = action.payload;

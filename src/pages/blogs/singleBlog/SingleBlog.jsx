@@ -19,7 +19,8 @@ export default function SinglBlog() {
               <SingleBlogCard blog={blog.post} />
               <CommentCard comments={blog?.comments} />
             </div>
-            <div className="bg-white lg:w-1/3 w-full">
+            {/* <div className="bg-white lg:w-1/3 w-full"> */}
+            <div className="container lg:w-1/3 p-8 my-6 mt-8 text-primary dark:text-white dark:border-gray-600 border">
               <RelatedBlogs />
             </div>
           </div>

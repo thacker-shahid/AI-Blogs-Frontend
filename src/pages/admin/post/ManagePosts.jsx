@@ -29,8 +29,10 @@ export default function ManagePosts() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteBlog(id);
-      toast.success("Blog deleted successfully", { action: { label: "X" } });
-      refetch();
+      if (response) {
+        toast.success("Blog deleted successfully", { action: { label: "X" } });
+        refetch();
+      }
     } catch (err) {
       toast.error("Error deleting blog", { action: { label: "X" } });
       console.error("Error deleting blog:", err);

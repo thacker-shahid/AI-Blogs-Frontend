@@ -12,7 +12,7 @@ export default function CommentCard({ comments }) {
   };
 
   return (
-    <div className="my-6 bg-white p-8">
+    <div className="container mx-auto p-8 my-6 mt-8 text-primary dark:text-white dark:border-gray-600 border">
       {/* Comment Input Here */}
       <PostAComment />
       <div>
@@ -35,7 +35,7 @@ export default function CommentCard({ comments }) {
                   </div>
 
                   {/* Comments Details */}
-                  <div className="text-gray-600 mt-5 border p-8">
+                  <div className="dark:text-white dark:border-gray-600 text-gray-600 mt-5 border p-8">
                     <p className="md:w-4/5">{comment?.comment}</p>
                   </div>
                 </div>

@@ -5,7 +5,16 @@ export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
         baseUrl: import.meta.env.VITE_BACKEND_URL + '/api/auth',
-        credentials: 'include'
+        prepareHeaders: (headers, { getState }) => {
+            const token = localStorage.getItem('token'); // or from Redux state
+            const parseToken = JSON.parse(token);
+            if (token) {
+                headers.set('Authorization', `Bearer ${parseToken}`);
+            }
+
+            return headers;
+        },
+        // credentials: 'include'
     }),
     endpoints: (builder) => ({
         registerUser: builder.mutation({  // mutation is used when we need to send something to the database.

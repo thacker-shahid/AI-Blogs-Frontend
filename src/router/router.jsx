@@ -31,10 +31,10 @@ const router = createBrowserRouter([
       { path: "/contact-us", element: <Contact /> },
       { path: "/blogs/:id", element: <SinglBlog /> },
       { path: "/login", element: <Login /> },
+      { path: "/verify-email", element: <VerifyEmail /> },
       { path: "/forgot-password", element: <ForgotPassword /> },
       { path: "/reset-password/:token", element: <ResetPassword /> },
       { path: "/register", element: <Register /> },
-      { path: "/verify-email", element: <VerifyEmail /> },
       {
         path: "/dashboard",
         element: (

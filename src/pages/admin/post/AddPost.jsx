@@ -6,16 +6,19 @@ import List from "@editorjs/list";
 import { usePostBlogMutation } from "../../../redux/features/blogs/blogsApi";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { useGetAiDataMutation } from "../../../redux/features/geminiai/ai.geminiAPI";
 
 export default function AddPost() {
-  const navigate = useNavigate();
-  const [postBlog, { isLoading }] = usePostBlogMutation();
   const [title, setTitle] = useState("");
   const [coverImg, setcoverImg] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+  const [postBlog, { isLoading }] = usePostBlogMutation();
+  const [getAiData] = useGetAiDataMutation();
 
   const { user } = useSelector((state) => state.auth);
   const editorRef = useRef(null);
@@ -59,12 +62,49 @@ export default function AddPost() {
         rating,
       };
       const response = await postBlog(newPost).unwrap();
-      toast.success("Blog post saved successfully", { action: { label: "X" } });
-      navigate("/");
+      if (response) {
+        toast.success("Blog post saved successfully", {
+          action: { label: "X" },
+        });
+        navigate("/");
+      }
     } catch (err) {
-      console.log("Failed to submit post", err);
       setMessage("Failed to submit post. Please try again");
       toast.error("Failed to submit post. Please try again", {
+        action: { label: "X" },
+      });
+    }
+  };
+
+  const handleGeminiAI = async () => {
+    if (!title) {
+      toast.error("Please add the title before using AI", {
+        action: { label: "X" },
+      });
+      return;
+    }
+
+    const data = { title };
+
+    try {
+      const response = await getAiData(data).unwrap();
+      if (response.success) {
+        editorRef.current.clear();
+        const paragraphs = response.result
+          .split("\n")
+          .filter((p) => p.trim() !== "");
+
+        paragraphs.forEach((para) => {
+          editorRef.current.blocks.insert("paragraph", { text: para.trim() });
+        });
+
+        toast.success("AI content added successfully", {
+          action: { label: "X" },
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching AI data:", error);
+      toast.error("Failed to fetch AI content. Please try again", {
         action: { label: "X" },
       });
     }
@@ -91,7 +131,18 @@ export default function AddPost() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-4">
           {/* Left Side */}
           <div className="md:w-2/3 w-full">
-            <p className="font-semibold text-xl mb-5">Content Section</p>
+            <div className="flex flex-col md:flex-row justify-between items-start gap-4">
+              <p className="font-semibold text-xl mb-5 md:w-1/2 w-full">
+                Content Section
+              </p>
+              <button
+                type="button"
+                onClick={handleGeminiAI}
+                className="md:w-1/2 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              >
+                Write using AI
+              </button>
+            </div>
             <p className="text-xs italic">Write your blog post below...</p>
             <div id="editorjs"></div>
           </div>

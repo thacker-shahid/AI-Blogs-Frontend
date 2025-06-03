@@ -45,7 +45,7 @@ export const blogsApi = createApi({
                 method: 'DELETE',
                 credentials: "include"
             }),
-            invalidatesTags: (result, error, { id }) => [{ type: "Blogs", id }],
+            // invalidatesTags: (result, error, { id }) => [{ type: "Blogs", id }],
         })
     })
 })

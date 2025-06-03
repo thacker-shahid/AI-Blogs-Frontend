@@ -6,8 +6,8 @@ export default function RelatedBlogs() {
   const { data: blogs = [], error, isLoading } = useFetchRelatedBlogsQuery(id);
 
   return (
-    <div>
-      <h3 className="text-2xl font-medium pt-8 px-8 pb-5">Reated Blogs:</h3>
+    <div className="">
+      <h3 className="text-2xl font-medium mb-3">Reated Blogs:</h3>
       <hr />
       {blogs?.length > 0 ? (
         <div className="mt-5 space-y-4">

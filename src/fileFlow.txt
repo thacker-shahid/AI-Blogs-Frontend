@@ -2,26 +2,9 @@ index.html-->main.jsx-->router.jsx-->App.jsx
 
 Functionality to be implemented:
 
-AI integration --->OpenAI API is Paid
-Search Blog functionality--->Done
-Secure the admin dashboard.--->Done
-Delete Comment functionality for admin --->Done
-Forgot password / Email verification using 6 digit code --->Done
-Footer, AboutUs, Privacy Policy, Contact Us page --->Done
-React Toast message --->Done
-Page Not Found --->Done
-Pagination-->Done
-Make all the new routes related to verify email, reset password secure--->Done
-Bugs related to layout and Responsive design--->Done
-
-Scroll to top
-Loading Spinner
-Dark mode
-Progress bar
-
-Bug related to token in cookie storage
+AI integration --->Done
+Dark mode ---> Done
 Google 2FA auth
-Deploy it on Hostinger
-
-Add 20 post in blog.
-Add user panel where users can update their password and upload aatar image.
+Add PWA for mobile app support.
+Add user panel where users can update their password and upload avatar image.
+Bug related to token in cookie storage

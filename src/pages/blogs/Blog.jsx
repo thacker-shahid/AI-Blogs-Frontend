@@ -4,18 +4,16 @@ import SearchBlog from "./SearchBlog";
 import { useState } from "react";
 
 export default function Blog() {
-  let [page, setPage] = useState(1);
-  const pageSize = 4;
-
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
-
   const [query, setQuery] = useState({
     search: "",
     category: "",
     location: "",
   });
+  let [page, setPage] = useState(1);
+  const pageSize = 4;
 
   const { data: blogs = [], error, isLoading } = useFetchBlogsQuery(query);
 
@@ -60,14 +58,14 @@ export default function Blog() {
         <button
           disabled={page <= 1}
           onClick={handlePrevious}
-          className="border rounded text-white p-2 bg-blue-700"
+          className="border bg-[#1E73BE] text-xl font-medium px-4 py-2 rounded shadow text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900"
         >
           &larr; Previous
         </button>
         <button
           onClick={handleNext}
           disabled={page >= Math.ceil(blogs.length / pageSize)}
-          className="border bg-blue-700 rounded text-white p-2 "
+          className="border bg-[#1E73BE] text-xl font-medium px-4 py-2 rounded shadow text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900"
         >
           Next &rarr;
         </button>

@@ -4,7 +4,7 @@ import Hero from "../miniPages/Hero";
 
 const Home = () => {
   return (
-    <div className="bg-white text-primary container mx-auto mt-8 p-8 ">
+    <div className="container mx-auto p-8 mt-8 text-black dark:text-white dark:border-gray-600">
       <Hero />
       <Blog />
     </div>

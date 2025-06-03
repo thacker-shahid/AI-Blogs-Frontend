@@ -63,7 +63,7 @@ export default function UpdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const content = await editorRef.current.save();
+      const content = await editorRef.current?.save();
       const updatedPost = {
         title: title || blog.post.title,
         coverImg: coverImg || blog.post.coverImg,
@@ -74,13 +74,14 @@ export default function UpdatePost() {
         rating: rating || blog.post.rating,
       };
       const response = await updateBlog({ id, ...updatedPost }).unwrap();
-      toast.success("Blog post updated successfully", {
-        action: { label: "X" },
-      });
-      refetch();
-      navigate("/");
+      if (response) {
+        toast.success("Blog post updated successfully", {
+          action: { label: "X" },
+        });
+        navigate("/");
+        refetch();
+      }
     } catch (err) {
-      console.log("Failed to submit post", err);
       setMessage("Failed to submit post. Please try again");
       toast.error("Failed to update blog post", { action: { label: "X" } });
     }

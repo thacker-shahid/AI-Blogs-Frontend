@@ -8,8 +8,11 @@ import { useLogoutUserMutation } from "../redux/features/auth/authApi";
 import { logout } from "../redux/features/auth/authSlice";
 import { Toaster, toast } from "sonner";
 import logo from "../assets/logo.png";
+import { setDarkMode } from "../redux/features/darkmode/darkModeSlice";
 
-export default function Navbar() {
+export default function Navbar(toggle) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navList = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about-us" },
@@ -17,13 +20,8 @@ export default function Navbar() {
     { name: "Contact Us", path: "/contact-us" },
   ];
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const { user } = useSelector((state) => state.auth);
+  const darkMode = useSelector((state) => state.theme.darkMode);
   const [logoutUser] = useLogoutUserMutation();
   const dispatch = useDispatch();
 
@@ -40,16 +38,20 @@ export default function Navbar() {
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <>
-      <header className="bg-white border">
+      <header className="border-b bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600 mt-2">
         <Toaster richColors position="top-right" />
         <nav className="container mx-auto flex justify-between px-5">
           <a href="/">
             <img
               src={logo}
               alt="Logo"
-              // style={{ display: "block", border: "1px solid red" }}
+              className="mb-2"
               width="200px"
               height="50px"
             />
@@ -66,12 +68,19 @@ export default function Navbar() {
               </li>
             ))}
 
+            <button
+              onClick={() => dispatch(setDarkMode())}
+              className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
+            >
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </button>
+
             {user && user.role === "user" && (
               <li className="flex items-center gap-3">
                 <img src={avatarImg} alt="AvatarImage" className="size-8" />
                 <button
                   onClick={handleLogout}
-                  className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm"
+                  className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
                 >
                   Logout
                 </button>
@@ -82,7 +91,7 @@ export default function Navbar() {
               <li className="flex items-center gap-3">
                 <img src={avatarImg} alt="AvatarImage" className="size-8" />
                 <Link to="/dashboard">
-                  <button className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm">
+                  <button className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md ">
                     Dashboard
                   </button>
                 </Link>
@@ -92,13 +101,24 @@ export default function Navbar() {
               <></>
             ) : (
               <li>
-                <NavLink to="/login">Login</NavLink>
+                <NavLink
+                  to="/login"
+                  className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
+                >
+                  Login
+                </NavLink>
               </li>
             )}
           </ul>
 
           {/* Toggle Menu Button */}
           <div className="flex items-center sm:hidden">
+            <button
+              onClick={() => dispatch(setDarkMode())}
+              className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-8 rounded-md"
+            >
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </button>
             <button
               onClick={toggleMenu}
               className="flex items-center bg-primary bg-[#fafafa] px-3 py-4 rounded text-sm text-gray-500 hover:text-gray-900"
@@ -113,7 +133,7 @@ export default function Navbar() {
 
           {/* Toggle Menu Items */}
           {isMenuOpen && (
-            <ul className="fixed top-[108px] left-0 w-full h-auto pb-8 border-b bg-white shadow-sm">
+            <ul className="fixed top-[108px] left-0 w-full h-auto pb-8 border-b shadow-sm  bg-white border text-black dark:text-white dark:border-gray-600 dark:bg-gray-900 font-medium py-3 rounded-md">
               {navList.map((item, index) => (
                 <li key={index} className="mt-5 px-4">
                   <NavLink
@@ -128,31 +148,52 @@ export default function Navbar() {
 
               {user && user.role === "user" && (
                 <li className="mt-5 px-4">
-                  {/* <img src={avatarImg} alt="AvatarImage" className="size-8" /> */}
                   <button
                     onClick={handleLogout}
-                    className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm"
+                    className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md w-1/2"
                   >
                     Logout
                   </button>
+                  {/* <button
+                    onClick={() => dispatch(setDarkMode())}
+                    className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
+                  >
+                    {darkMode ? "Light Mode" : "Dark Mode"}
+                  </button> */}
                 </li>
               )}
 
               {user && user.role === "admin" && (
                 <li className="mt-5 px-4">
-                  {/* <img src={avatarImg} alt="AvatarImage" className="size-8" /> */}
                   <Link to="/dashboard">
-                    <button className="bg-[#1E73BE] px-4 py-1.5 text-white rounded-sm">
+                    <button className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md w-1/2">
                       Dashboard
                     </button>
                   </Link>
+                  {/* <button
+                    onClick={() => dispatch(setDarkMode())}
+                    className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
+                  >
+                    {darkMode ? "Light Mode" : "Dark Mode"}
+                  </button> */}
                 </li>
               )}
               {user ? (
                 <></>
               ) : (
                 <li className="mt-5 px-4">
-                  <NavLink to="/login">Login</NavLink>
+                  <NavLink
+                    to="/login"
+                    className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
+                  >
+                    Login
+                  </NavLink>
+                  {/* <button
+                    onClick={() => dispatch(setDarkMode())}
+                    className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-4 rounded-md"
+                  >
+                    {darkMode ? "Light Mode" : "Dark Mode"}
+                  </button> */}
                 </li>
               )}
             </ul>
