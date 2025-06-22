@@ -9,14 +9,19 @@ export const geminiAIApi = createApi({
     }),
 
     endpoints: (builder) => ({
-        getAiData: builder.mutation({  // mutation is used when we need to send something to the database.
-            query: (data) => ({
-                url: '/',
-                method: 'POST',
-                body: data,
-                credentials: 'include'
-            }),
-        })
+        getAiData: builder.mutation({
+            query: ({ data, token }) => {
+                return {
+                    url: '/',
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        Authorization: `Bearer ${token}`, // 🔑 Set the token here
+                    },
+                    credentials: 'include',
+                };
+            },
+        }),
     })
 })
 

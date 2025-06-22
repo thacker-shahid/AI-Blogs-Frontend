@@ -21,6 +21,7 @@ export default function UpdatePost() {
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
   const editorRef = useRef(null);
+  const token = localStorage.getItem("token");
 
   const {
     data: blog = [],
@@ -73,7 +74,7 @@ export default function UpdatePost() {
         author: user?._id,
         rating: rating || blog.post.rating,
       };
-      const response = await updateBlog({ id, ...updatedPost }).unwrap();
+      const response = await updateBlog({ id, token, ...updatedPost }).unwrap();
       if (response) {
         toast.success("Blog post updated successfully", {
           action: { label: "X" },

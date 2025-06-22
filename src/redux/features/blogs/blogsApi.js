@@ -20,29 +20,38 @@ export const blogsApi = createApi({
             query: (id) => `blogs/related/${id}`
         }),
         postBlog: builder.mutation({
-            query: (newPost) => ({
+            query: ({ newPost, token }) => ({
                 url: "/blogs/create-post",
                 method: 'POST',
                 body: newPost,
+                headers: {
+                    Authorization: `Bearer ${token}`, // 🔑 Set the token here
+                },
                 credentials: 'include'
             }),
             invalidatesTags: [{ type: 'Blogs' }],
         }),
 
         updateBlog: builder.mutation({
-            query: ({ id, ...rest }) => ({
+            query: ({ id, token, ...rest }) => ({
                 url: `/blogs/update-post/${id}`,
                 method: 'PATCH',
                 body: rest,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
                 credentials: "include"
             }),
             invalidatesTags: (result, error, { id }) => [{ type: "Blogs", id }],
         }),
 
         deleteBlog: builder.mutation({
-            query: (id) => ({
+            query: ({ id, token }) => ({
                 url: `/blogs/${id}`,
                 method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`, // 🔑 Set the token here
+                },
                 credentials: "include"
             }),
             // invalidatesTags: (result, error, { id }) => [{ type: "Blogs", id }],

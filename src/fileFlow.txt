@@ -2,9 +2,6 @@ index.html-->main.jsx-->router.jsx-->App.jsx
 
 Functionality to be implemented:
 
-AI integration --->Done
-Dark mode ---> Done
 Google 2FA auth
 Add PWA for mobile app support.
 Add user panel where users can update their password and upload avatar image.
-Bug related to token in cookie storage

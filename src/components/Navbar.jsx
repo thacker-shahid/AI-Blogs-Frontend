@@ -112,12 +112,6 @@ export default function Navbar(toggle) {
 
           {/* Toggle Menu Button */}
           <div className="flex items-center sm:hidden">
-            {/* <button
-              onClick={() => dispatch(setDarkMode())}
-              className="bg-blue-500 border text-white dark:text-white dark:border-gray-600 hover:bg-indigo-500 dark:bg-gray-900 font-medium py-2 px-8 rounded-md"
-            >
-              {darkMode ? "Light Mode" : "Dark Mode"}
-            </button> */}
             <button className="mr-10" onClick={() => dispatch(setDarkMode())}>
               {darkMode ? <FaSun size={25} /> : <FaMoon size={25} />}
             </button>

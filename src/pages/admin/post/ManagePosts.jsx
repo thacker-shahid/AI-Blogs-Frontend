@@ -26,9 +26,11 @@ export default function ManagePosts() {
     return new Date(date).toLocaleDateString("en-US", options);
   };
 
+  const token = localStorage.getItem("token");
+
   const handleDelete = async (id) => {
     try {
-      const response = await deleteBlog(id);
+      const response = await deleteBlog({ id, token });
       if (response) {
         toast.success("Blog deleted successfully", { action: { label: "X" } });
         refetch();

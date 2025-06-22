@@ -22,6 +22,7 @@ export default function AddPost() {
 
   const { user } = useSelector((state) => state.auth);
   const editorRef = useRef(null);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const editor = new EditorJS({
@@ -61,7 +62,7 @@ export default function AddPost() {
         author: user?._id,
         rating,
       };
-      const response = await postBlog(newPost).unwrap();
+      const response = await postBlog({ newPost, token }).unwrap();
       if (response) {
         toast.success("Blog post saved successfully", {
           action: { label: "X" },
@@ -87,7 +88,7 @@ export default function AddPost() {
     const data = { title };
 
     try {
-      const response = await getAiData(data).unwrap();
+      const response = await getAiData({ data, token }).unwrap();
       if (response.success) {
         editorRef.current.clear();
         const paragraphs = response.result
